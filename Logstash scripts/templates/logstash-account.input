@@ -1,0 +1,62 @@
+input {
+
+  file {
+    'path' => "/var/log/apache2/kibana-access.log"
+    'sincedb_path' => "/tmp"
+    'sincedb_write_interval' => "1"
+    'type' => "apache-access"
+  }
+
+  exec {
+    'command' => "sar -b 1 1 | grep 'Average:' | awk '{print $2}'"
+    'interval' => "60"
+    'type' => "tps"
+  }
+
+  exec {
+    'command' => "sar -b 1 1 | grep 'Average:' | awk '{print $3}'"
+    'interval' => "60"
+    'type' => "rtps"
+  }
+
+  exec {
+    'command' => "sar -b 1 1 | grep 'Average:' | awk '{print $4}'"
+    'interval' => "60"
+    'type' => "wtps"
+  }
+
+  exec {
+    'command' => "sar -b 1 1 | grep 'Average:' | awk '{print $5}'"
+    'interval' => "60"
+    'type' => "breads"
+  }
+
+  exec {
+    'command' => "sar -b 1 1 | grep 'Average:' | awk '{print $6}'"
+    'interval' => "60"
+    'type' => "bwrtns"
+  }
+
+  exec {
+    'command' => "cat /proc/loadavg | awk '{print $1}'"
+    'interval' => "60"
+    'type' => "system-load1"
+  }
+
+  exec {
+    'command' => "cat /proc/loadavg | awk '{print $2}'"
+    'interval' => "60"
+    'type' => "system-load5"
+  }
+
+  exec {
+    'command' => "cat /proc/loadavg | awk '{print $3}'"
+    'interval' => "60"
+    'type' => "system-load15"
+  }
+
+  exec {
+    'command' => "sar 1 1 | tail -n 1 | awk '{print 100 - $8}'"
+    'interval' => "60"
+    'type' => "system-cpu"
+  }

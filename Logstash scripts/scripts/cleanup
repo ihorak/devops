@@ -1,0 +1,2 @@
+find /mnt/CloudTrail/ -mtime +2 -type f -delete
+find /usr/local/var/log/elastcisearch/ -mtime +10 -type f -delete

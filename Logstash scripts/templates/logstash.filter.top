@@ -1,0 +1,80 @@
+filter {
+
+if [type] == "apache-access" {
+  grok {
+    'match' => [ "message", "%{COMBINEDAPACHELOG}" ]
+  }
+}
+
+if [type] == "apache-access" {
+  date {
+    'match' => [ "timestamp", "dd/MMM/yyyy:HH:mm:ss Z" ]
+  }
+}
+  
+if [type] == "cloudtrail" {
+  date {
+    match => [ "eventTime", "ISO8601" ]
+  }
+ }
+if [type] == "tps" {
+  grok {
+    'named_captures_only' => "true"
+    'match' => [ "message", "%{BASE10NUM:load:float}" ]
+  }
+}
+
+if [type] == "rtps" {
+  grok {
+    'named_captures_only' => "true"
+    'match' => [ "message", "%{BASE10NUM:load:float}" ]
+  }
+}
+
+if [type] == "wtps" {
+  grok {
+    'named_captures_only' => "true"
+    'match' => [ "message", "%{BASE10NUM:load:float}" ]
+  }
+}
+
+if [type] == "breads" {
+  grok {
+    'named_captures_only' => "true"
+    'match' => [ "message", "%{BASE10NUM:load:float}" ]
+  }
+}
+
+if [type] == "bwrtns" {
+  grok {
+    'named_captures_only' => "true"
+    'match' => [ "message", "%{BASE10NUM:load:float}" ]
+  }
+}
+
+if [type] == "system-load1" {
+  grok {
+    'named_captures_only' => "true"
+    'match' => [ "message", "%{BASE10NUM:load_avg:float}" ]
+  }
+}
+
+if [type] == "system-load5" {
+  grok {
+    'named_captures_only' => "true"
+    'match' => [ "message", "%{BASE10NUM:load_avg:float}" ]
+  }
+}
+
+if [type] == "system-load15" {
+  grok {
+    'named_captures_only' => "true"
+    'match' => [ "message", "%{BASE10NUM:load_avg:float}" ]
+  }
+}
+if [type] == "system-cpu" {
+  grok {
+    'named_captures_only' => "true"
+    'match' => [ "message", "%{BASE10NUM:system_cpu:float}" ]
+  }
+}

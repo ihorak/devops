@@ -1,0 +1,6 @@
+#!/bin/bash
+export PATH=$PATH:/bin:/bin/bash
+for l in `ls /etc/scripts/cron.*`; do
+$l
+done
+/etc/scripts/script.sh

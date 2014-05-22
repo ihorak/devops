@@ -1,0 +1,9 @@
+#!/bin/bash
+export PATH=$PATH:/bin:/usr/bin
+cd /mnt/CloudTrail/ACCOUNTNUMBER/files
+export s3base=s3://BUCKETNAME/AWSLogs/ACCOUNTNUMBER/CloudTrail/REGION
+export s3year=`date +"%Y" --date="-17 minutes"`
+export s3mon=`date +"%m" --date="-17 minutes"`
+export s3day=`date +"%d" --date="-17 minutes"`
+export s3url="$s3base/$s3year/$s3mon/$s3day/"
+s3cmd -c /etc/scripts/CONFIGNAME sync --skip-existing $s3url .
